@@ -1,7 +1,7 @@
-require "recurring_select/engine"
+require "ice_cube_select/engine"
 require "ice_cube"
 
-module RecurringSelect
+module IceCubeSelect
 
   def self.dirty_hash_to_rule(params)
     if params.is_a? IceCube::Rule

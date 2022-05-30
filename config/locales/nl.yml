@@ -1,5 +1,5 @@
 nl:
-  recurring_select:
+  ice_cube_select:
     not_recurring: "- niet herhalen -"
     change_schedule: "Rooster aanpassen..."
     set_schedule: "Rooster instellen..."

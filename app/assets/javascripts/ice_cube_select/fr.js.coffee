@@ -1,4 +1,4 @@
-$.fn.recurring_select.texts = {
+$.fn.ice_cube_select.texts = {
   locale_iso_code: "fr"
   repeat: "Récurrence"
   last_day: "Dernier jour"

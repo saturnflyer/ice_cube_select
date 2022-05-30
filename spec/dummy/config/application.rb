@@ -1,9 +1,10 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require "sprockets/railtie"
 
 Bundler.require(*Rails.groups(:assets => %w(development test)))
-require "recurring_select"
+require "ice_cube_select"
 
 module Dummy
   class Application < Rails::Application

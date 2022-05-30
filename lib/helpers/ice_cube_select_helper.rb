@@ -1,16 +1,16 @@
 require "ice_cube"
 
-module RecurringSelectHelper
+module IceCubeSelectHelper
   module FormHelper
     def select_recurring(object, method, default_schedules = nil, options = {}, html_options = {})
-      RecurringSelectTag.new(object, method, self, default_schedules, options, html_options).render
+      IceCubeSelectTag.new(object, method, self, default_schedules, options, html_options).render
     end
   end
 
   module FormBuilder
     def select_recurring(method, default_schedules = nil, options = {}, html_options = {})
       if !@template.respond_to?(:select_recurring)
-        @template.class.send(:include, RecurringSelectHelper::FormHelper)
+        @template.class.send(:include, IceCubeSelectHelper::FormHelper)
       end
 
       @template.select_recurring(@object_name, method, default_schedules, options.merge(:object => @object), html_options)
@@ -21,19 +21,19 @@ module RecurringSelectHelper
     def recurring_options_for_select(currently_selected_rule = nil, default_schedules = nil, options = {})
 
       options_array = []
-      blank_option_label = options[:blank_label] || I18n.t("recurring_select.not_recurring")
+      blank_option_label = options[:blank_label] || I18n.t("ice_cube_select.not_recurring")
       blank_option = [blank_option_label, "null"]
-      separator = [I18n.t("recurring_select.or"), {:disabled => true}]
+      separator = [I18n.t("ice_cube_select.or"), {:disabled => true}]
 
       if default_schedules.blank?
         if currently_selected_rule.present?
           options_array << ice_cube_rule_to_option(currently_selected_rule)
           options_array << separator
-          options_array << [I18n.t("recurring_select.change_schedule"), "custom"]
+          options_array << [I18n.t("ice_cube_select.change_schedule"), "custom"]
           options_array << blank_option if options[:allow_blank]
         else
           options_array << blank_option
-          options_array << [I18n.t("recurring_select.set_schedule"), "custom"]
+          options_array << [I18n.t("ice_cube_select.set_schedule"), "custom"]
         end
       else
         options_array << blank_option if options[:allow_blank]
@@ -44,9 +44,9 @@ module RecurringSelectHelper
 
         if currently_selected_rule.present? and !current_rule_in_defaults?(currently_selected_rule, default_schedules)
           options_array << ice_cube_rule_to_option(currently_selected_rule, true)
-          custom_label = [I18n.t("recurring_select.new_custom_schedule"), "custom"]
+          custom_label = [I18n.t("ice_cube_select.new_custom_schedule"), "custom"]
         else
-          custom_label = [I18n.t("recurring_select.custom_schedule"), "custom"]
+          custom_label = [I18n.t("ice_cube_select.custom_schedule"), "custom"]
         end
 
         options_array << separator
@@ -59,9 +59,9 @@ module RecurringSelectHelper
     private
 
     def ice_cube_rule_to_option(supplied_rule, custom = false)
-      return supplied_rule unless RecurringSelect.is_valid_rule?(supplied_rule)
+      return supplied_rule unless IceCubeSelect.is_valid_rule?(supplied_rule)
 
-      rule = RecurringSelect.dirty_hash_to_rule(supplied_rule)
+      rule = IceCubeSelect.dirty_hash_to_rule(supplied_rule)
       ar = [rule.to_s, rule.to_hash.to_json]
 
       if custom
@@ -83,15 +83,15 @@ module RecurringSelectHelper
   module SelectHTMLOptions
     private
 
-    def recurring_select_html_options(html_options)
+    def ice_cube_select_html_options(html_options)
       html_options = html_options.stringify_keys
-      html_options["class"] = (html_options["class"].to_s.split + ["recurring_select"]).join(" ")
+      html_options["class"] = (html_options["class"].to_s.split + ["ice_cube_select"]).join(" ")
       html_options
     end
   end
 
-  class RecurringSelectTag < ActionView::Helpers::Tags::Base
-    include RecurringSelectHelper::FormOptionsHelper
+  class IceCubeSelectTag < ActionView::Helpers::Tags::Base
+    include IceCubeSelectHelper::FormOptionsHelper
     include SelectHTMLOptions
 
     def initialize(object, method, template_object, default_schedules = nil, options = {}, html_options = {})
@@ -99,7 +99,8 @@ module RecurringSelectHelper
       @choices = @choices.to_a if @choices.is_a?(Range)
       @method_name = method.to_s
       @object_name = object.to_s
-      @html_options = recurring_select_html_options(html_options)
+      @html_options = ice_cube_select_html_options(html_options)
+      @template_object = template_object
       add_default_name_and_id(@html_options)
 
       super(object, method, template_object, options)

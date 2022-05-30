@@ -1,5 +1,5 @@
 en:
-  recurring_select:
+  ice_cube_select:
     not_recurring: "- not recurring -"
     change_schedule: "Change schedule..."
     set_schedule: "Set schedule..."

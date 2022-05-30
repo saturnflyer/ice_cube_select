@@ -1,11 +1,11 @@
 development:
   adapter: postgresql
-  database: recurring_select_development
+  database: ice_cube_select_development
   username:
   password:
 
 test:
   adapter: postgresql
-  database: recurring_select_test
+  database: ice_cube_select_test
   username:
   password:

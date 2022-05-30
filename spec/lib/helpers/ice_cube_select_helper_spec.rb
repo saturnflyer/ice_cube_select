@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe RecurringSelectHelper do
+describe IceCubeSelectHelper do
 
   class FromTester
-    include RecurringSelectHelper::FormOptionsHelper
+    include IceCubeSelectHelper::FormOptionsHelper
   end
 
   describe "#recurring_options_for_select" do
