@@ -40,5 +40,5 @@ echo "       cleaning tmp dir $TMP_DIR"
 rm -rf $TMP_DIR
 
 echo "       Switching to Gemfile.deploy as a base"
-\cp Gemfile.deploy Gemfile
+\cp $BUILD_DIR/Gemfile.deploy $BUILD_DIR/Gemfile
 exit 0
