@@ -1,4 +1,4 @@
-# Recurring Select
+# Ice Cube Select
 
 [![Code Climate](https://codeclimate.com/github/saturnflyer/ice_cube_select.png)](https://codeclimate.com/github/saturnflyer/ice_cube_select)
 
@@ -55,7 +55,7 @@ Use :allow_blank for a "not recurring" option:
 
 ### Additional Helpers
 
-Recurring Select also comes with helpers for parsing the
+Ice Cube Select also comes with helpers for parsing the
 parameters when they hit your application.
 
 You can send the column into the `is_valid_rule?` method to check the
@@ -75,7 +75,7 @@ IceCubeSelect.dirty_hash_to_rule(params)
 
 ### I18n
 
-Recurring Select is I18n aware
+Ice Cube Select is I18n aware
 
 You can create a locale file like this:
 
