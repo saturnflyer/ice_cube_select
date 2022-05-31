@@ -1,5 +1,5 @@
 *.gem
-spec/gemfiles/Gemfile*.lock
+gemfiles/Gemfile*.lock
 Gemfile.lock
 
 .bundle/

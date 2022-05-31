@@ -154,8 +154,8 @@ love to get Jasmine running also, but haven't had time yet.
 Tests can be ran against different versions of Rails like so:
 
 ```
-BUNDLE_GEMFILE=spec/gemfiles/Gemfile.rails-7.0.x bundle install
-BUNDLE_GEMFILE=spec/gemfiles/Gemfile.rails-7.0.x bundle exec rspec spec
+BUNDLE_GEMFILE=gemfiles/Gemfile.rails-7.0.x bundle install
+BUNDLE_GEMFILE=gemfiles/Gemfile.rails-7.0.x bundle exec rspec spec
 ```
 
 Feel free to open issues or send pull requests.
