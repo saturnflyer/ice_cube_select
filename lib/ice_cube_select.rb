@@ -4,19 +4,14 @@ require "ice_cube"
 module IceCubeSelect
 
   def self.dirty_hash_to_rule(params)
-    if params.is_a? IceCube::Rule
-      params
-    else
-      params = JSON.parse(params, quirks_mode: true) if params.is_a?(String)
-      if params.nil?
-        nil
-      else
-        params = params.symbolize_keys
-        rules_hash = filter_params(params)
-        IceCube::Rule.from_hash(rules_hash)
-      end
+    return params if params.is_a? IceCube::Rule
 
-    end
+    params = JSON.parse(params, quirks_mode: true) if params.is_a?(String)
+    return nil if params.nil?
+
+    params = params.symbolize_keys
+    rules_hash = filter_params(params)
+    IceCube::Rule.from_hash(rules_hash)
   end
 
   def self.is_valid_rule?(possible_rule)
@@ -24,17 +19,13 @@ module IceCubeSelect
     return false if possible_rule.blank?
 
     if possible_rule.is_a?(String)
-      begin
-        return JSON.parse(possible_rule).is_a?(Hash)
-      rescue JSON::ParserError
-        return false
-      end
+      possible_rule = JSON.parse(possible_rule)
     end
 
     # TODO: this should really have an extra step where it tries to perform the final parsing
-    return true if possible_rule.is_a?(Hash)
-
-    false #only a hash or a string of a hash can be valid
+    possible_rule.is_a?(Hash)
+  rescue JSON::ParserError
+    false
   end
 
   private
