@@ -1,4 +1,4 @@
-Dummy::Application.routes.draw do
-  post '/result', to: 'sample#result', as: :result
-  root to: 'sample#index'
+Rails.application.routes.draw do
+  resources :samples, only: [:index, :create]
+  root to: "samples#index"
 end
