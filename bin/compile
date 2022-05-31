@@ -20,7 +20,7 @@ cp -R $BUILD_DIR/$PROJECT_PATH/. $TMP_DIR/
 
 echo "       making gem directory to contain source"
 GEM_DIR=`mktemp -d $CACHE_DIR/ice_cube-selectXXXXX`
-cp -R $BUILD_DIR/. $GEM_DIR/
+cp -R $BUILD_DIR/[!.]* $GEM_DIR/
 
 echo "       cleaning build dir $BUILD_DIR"
 rm -rf $BUILD_DIR
