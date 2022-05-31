@@ -19,7 +19,8 @@
     },
     changed: function() {
       if (this.val() === "custom") {
-        return methods.open_custom.apply(this);
+        methods.open_custom.apply(this);
+        return setModalTabbing();
       } else {
         return methods.set_initial_values.apply(this);
       }
@@ -69,6 +70,23 @@
       new_option.val(new_rule_json);
       return new_option.insertBefore(separator);
     },
+    setModalTabbing: function() {
+      var tabbables;
+      tabbables = $('#ice_cube_select_modal').find(':tabbable');
+      $('#ice_cube_select_modal').off('keydown').on('keydown', function(e) {
+        var x;
+        var x;
+        if ($(e.target).is(tabbables.first()) && e.which === 9 && e.shiftKey) {
+          e.preventDefault();
+          x = tabbables.last();
+          x.focus();
+        } else if ($(e.target).is(tabbables.last()) && e.which === 9 && !e.shiftKey) {
+          e.preventDefault();
+          x = tabbables.first();
+          x.focus();
+        }
+      });
+    };
     methods: function() {
       return methods;
     }

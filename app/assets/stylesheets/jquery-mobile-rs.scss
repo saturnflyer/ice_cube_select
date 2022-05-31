@@ -17,30 +17,30 @@ p.monthly_rule_type label {
   display:inline;
 }
 
-.rs_dialog_holder {padding-left:0px; background-color:#333; background-color:rgba(30,30,30,0.3); font-size:1em; position:absolute;
-  .rs_dialog { position:absolute; left:10px; right:10px; margin:0px; display:block; z-index:51;
+.ice_cube_select_dialog_holder {padding-left:0px; background-color:#333; background-color:rgba(30,30,30,0.3); font-size:1em; position:absolute;
+  .ice_cube_select_dialog { position:absolute; left:10px; right:10px; margin:0px; display:block; z-index:51;
 
 
-    .rs_dialog_content {
+    .ice_cube_select_dialog_content {
 
       label.ui-select { display:inline-block;}
       div.ui-select {display:inline-block;}
 
-      input.rs_interval {display:inline-block;}
+      input.ice_cube_select_interval {display:inline-block;}
 
       .freq_option_section {
         .day_holder {height:36px;
           a {padding:10px 12px;}
         }
 
-        .rs_calendar { width:225px;
+        .ice_cube_select_calendar { width:225px;
           * { text-shadow: none; }
           a {padding:10px 8px;}
           a.end_of_month { width: 111px; }
         }
       }
 
-      .rs_summary span { font-size:90%; font-weight:normal; }
+      .ice_cube_select_summary span { font-size:90%; font-weight:normal; }
     }
 
   }

@@ -30,21 +30,50 @@
 
     IceCubeSelectDialog.prototype.initDialogBox = function() {
       var open_in;
-      $(".rs_dialog_holder").remove();
+      $(".ice_cube_select_dialog_holder").remove();
       open_in = $("body");
       if ($(".ui-page-active").length) {
         open_in = $(".ui-page-active");
       }
       open_in.append(this.template());
-      this.outer_holder = $(".rs_dialog_holder");
-      this.inner_holder = this.outer_holder.find(".rs_dialog");
-      this.content = this.outer_holder.find(".rs_dialog_content");
+      this.outer_holder = $(".ice_cube_select_dialog_holder");
+      this.inner_holder = this.outer_holder.find(".ice_cube_select_dialog");
+      this.content = this.outer_holder.find(".ice_cube_select_dialog_content");
       this.positionDialogVert(true);
       this.mainEventInit();
       this.freqInit();
       this.summaryInit();
       this.outer_holder.trigger("ice_cube_select:dialog_opened");
       return this.freq_select.focus();
+    };
+
+    IceCubeSelectDialog.prototype.ordinal_suffix_of = function(i) {
+      var j, k;
+      j = i % 10;
+      k = i % 100;
+      if (j === 1 && k !== 11) {
+        return i + 'st';
+      }
+      if (j === 2 && k !== 12) {
+        return i + 'nd';
+      }
+      if (j === 3 && k !== 13) {
+        return i + 'rd';
+      }
+      return i + 'th';
+    };
+
+    IceCubeSelectDialog.prototype.full_string_weekday = function(num) {
+      var weekday;
+      weekday = new Array(7);
+      weekday[0] = 'Sunday';
+      weekday[1] = 'Monday';
+      weekday[2] = 'Tuesday';
+      weekday[3] = 'Wednesday';
+      weekday[4] = 'Thursday';
+      weekday[5] = 'Friday';
+      weekday[6] = 'Saturday';
+      return weekday[num];
     };
 
     IceCubeSelectDialog.prototype.positionDialogVert = function(initial_positioning) {
@@ -86,7 +115,7 @@
     };
 
     IceCubeSelectDialog.prototype.outerCancel = function(event) {
-      if ($(event.target).hasClass("rs_dialog_holder")) {
+      if ($(event.target).hasClass("ice_cube_select_dialog_holder")) {
         return this.cancel();
       }
     };
@@ -101,14 +130,14 @@
 
     IceCubeSelectDialog.prototype.mainEventInit = function() {
       this.outer_holder.on('click tap', this.outerCancel);
-      this.content.on('click tap', 'h1 a', this.cancel);
-      this.save_button = this.content.find('input.rs_save').on("click tap", this.save);
-      return this.content.find('input.rs_cancel').on("click tap", this.cancel);
+      this.content.on('click tap', 'h4 a', this.cancel);
+      this.save_button = this.content.find('input.ice_cube_select_save').on("click tap", this.save);
+      return this.content.find('input.ice_cube_select_cancel').on("click tap", this.cancel);
     };
 
     IceCubeSelectDialog.prototype.freqInit = function() {
       var rule_type;
-      this.freq_select = this.outer_holder.find(".rs_frequency");
+      this.freq_select = this.outer_holder.find(".ice_cube_select_frequency");
       if ((this.current_rule.hash != null) && ((rule_type = this.current_rule.hash.rule_type) != null)) {
         if (rule_type.search(/Weekly/) !== -1) {
           this.freq_select.prop('selectedIndex', 1);
@@ -129,7 +158,7 @@
     IceCubeSelectDialog.prototype.initDailyOptions = function() {
       var interval_input, section;
       section = this.content.find('.daily_options');
-      interval_input = section.find('.rs_daily_interval');
+      interval_input = section.find('.ice_cube_select_daily_interval');
       interval_input.val(this.current_rule.hash.interval);
       interval_input.on("change keyup", this.intervalChanged);
       return section.show();
@@ -138,7 +167,7 @@
     IceCubeSelectDialog.prototype.initWeeklyOptions = function() {
       var interval_input, section;
       section = this.content.find('.weekly_options');
-      interval_input = section.find('.rs_weekly_interval');
+      interval_input = section.find('.ice_cube_select_weekly_interval');
       interval_input.val(this.current_rule.hash.interval);
       interval_input.on("change keyup", this.intervalChanged);
       section.find(".day_holder a").each(function(index, element) {
@@ -156,7 +185,7 @@
     IceCubeSelectDialog.prototype.initMonthlyOptions = function() {
       var in_week_mode, interval_input, section, _base, _base1, _base2;
       section = this.content.find('.monthly_options');
-      interval_input = section.find('.rs_monthly_interval');
+      interval_input = section.find('.ice_cube_select_monthly_interval');
       interval_input.val(this.current_rule.hash.interval);
       interval_input.on("change keyup", this.intervalChanged);
       (_base = this.current_rule.hash).validations || (_base.validations = {});
@@ -175,14 +204,14 @@
     IceCubeSelectDialog.prototype.initYearlyOptions = function() {
       var interval_input, section;
       section = this.content.find('.yearly_options');
-      interval_input = section.find('.rs_yearly_interval');
+      interval_input = section.find('.ice_cube_select_yearly_interval');
       interval_input.val(this.current_rule.hash.interval);
       interval_input.on("change keyup", this.intervalChanged);
       return section.show();
     };
 
     IceCubeSelectDialog.prototype.summaryInit = function() {
-      this.summary = this.outer_holder.find(".rs_summary");
+      this.summary = this.outer_holder.find(".ice_cube_select_summary");
       return this.summaryUpdate();
     };
 
@@ -229,25 +258,29 @@
 
     IceCubeSelectDialog.prototype.init_calendar_days = function(section) {
       var day_link, end_of_month_link, monthly_calendar, num, _i;
-      monthly_calendar = section.find(".rs_calendar_day");
+      monthly_calendar = section.find(".ice_cube_select_calendar_day");
       monthly_calendar.html("");
       for (num = _i = 1; _i <= 31; num = ++_i) {
         monthly_calendar.append((day_link = $(document.createElement("a")).text(num)));
+        day_link.addClass("a_day")
+        day_link.attr('aria-label', ordinal_suffix_of(num) + ' Day of Month' );
         if ($.inArray(num, this.current_rule.hash.validations.day_of_month) !== -1) {
           day_link.addClass("selected");
         }
       }
       monthly_calendar.append((end_of_month_link = $(document.createElement("a")).text($.fn.ice_cube_select.texts["last_day"])));
       end_of_month_link.addClass("end_of_month");
+      end_of_month_link.attr('aria-label', ' Last Day of Month' );
       if ($.inArray(-1, this.current_rule.hash.validations.day_of_month) !== -1) {
         end_of_month_link.addClass("selected");
       }
-      return monthly_calendar.find("a").on("click tap", this.dateOfMonthChanged);
+      monthly_calendar.find("a").on("click tap", this.dateOfMonthChanged);
+      return monthly_calendar.find("a").attr('href','');
     };
 
     IceCubeSelectDialog.prototype.init_calendar_weeks = function(section) {
       var cell_str, day_link, day_of_week, index, monthly_calendar, num, row_labels, show_row, _i, _j, _len, _ref, _ref1, _ref2;
-      monthly_calendar = section.find(".rs_calendar_week");
+      monthly_calendar = section.find(".ice_cube_select_calendar_week");
       monthly_calendar.html("");
       row_labels = $.fn.ice_cube_select.texts["order"];
       show_row = $.fn.ice_cube_select.options["monthly"]["show_week"];
@@ -262,6 +295,8 @@
             day_link = $("<a>", {
               text: cell_str[day_of_week]
             });
+            day_link.attr('href','');
+            day_link.attr('aria-label', ordinal_suffix_of(num) + ' ' + full_string_weekday(day_of_week) );
             day_link.attr("day", day_of_week);
             day_link.attr("instance", num);
             monthly_calendar.append(day_link);
@@ -279,8 +314,8 @@
     IceCubeSelectDialog.prototype.toggle_month_view = function() {
       var week_mode;
       week_mode = this.content.find(".monthly_rule_type_week").prop("checked");
-      this.content.find(".rs_calendar_week").toggle(week_mode);
-      return this.content.find(".rs_calendar_day").toggle(!week_mode);
+      this.content.find(".ice_cube_select_calendar_week").toggle(week_mode);
+      return this.content.find(".ice_cube_select_calendar_day").toggle(!week_mode);
     };
 
     IceCubeSelectDialog.prototype.freqChanged = function() {
@@ -351,7 +386,7 @@
       this.current_rule.str = null;
       (_base = this.current_rule).hash || (_base.hash = {});
       this.current_rule.hash.validations = {};
-      raw_days = this.content.find(".monthly_options .rs_calendar_day a.selected").map(function() {
+      raw_days = this.content.find(".monthly_options .ice_cube_select_calendar_day a.selected").map(function() {
         var res;
         res = $(this).text() === $.fn.ice_cube_select.texts["last_day"] ? -1 : parseInt($(this).text());
         return res;
@@ -370,7 +405,7 @@
       this.current_rule.hash.validations = {};
       this.current_rule.hash.validations.day_of_month = [];
       this.current_rule.hash.validations.day_of_week = {};
-      this.content.find(".monthly_options .rs_calendar_week a.selected").each((function(_this) {
+      this.content.find(".monthly_options .ice_cube_select_calendar_week a.selected").each((function(_this) {
         return function(index, elm) {
           var day, instance, _base1;
           day = parseInt($(elm).attr("day"));
@@ -385,12 +420,12 @@
 
     IceCubeSelectDialog.prototype.template = function() {
       var day_of_week, str, _i, _ref, _ref1;
-      str = "<div class='rs_dialog_holder'> <div class='rs_dialog'> <div class='rs_dialog_content'> <h1>" + $.fn.ice_cube_select.texts["repeat"] + " <a href='#' title='" + $.fn.ice_cube_select.texts["cancel"] + "' Alt='" + $.fn.ice_cube_select.texts["cancel"] + "'></a> </h1> <p class='frequency-select-wrapper'> <label for='rs_frequency'>" + $.fn.ice_cube_select.texts["frequency"] + ":</label> <select data-wrapper-class='ui-recurring-select' id='rs_frequency' class='rs_frequency' name='rs_frequency'> <option value='Daily'>" + $.fn.ice_cube_select.texts["daily"] + "</option> <option value='Weekly'>" + $.fn.ice_cube_select.texts["weekly"] + "</option> <option value='Monthly'>" + $.fn.ice_cube_select.texts["monthly"] + "</option> <option value='Yearly'>" + $.fn.ice_cube_select.texts["yearly"] + "</option> </select> </p> <div class='daily_options freq_option_section'> <p> " + $.fn.ice_cube_select.texts["every"] + " <input type='text' data-wrapper-class='ui-recurring-select' name='rs_daily_interval' class='rs_daily_interval rs_interval' value='1' size='2' /> " + $.fn.ice_cube_select.texts["days"] + " </p> </div> <div class='weekly_options freq_option_section'> <p> " + $.fn.ice_cube_select.texts["every"] + " <input type='text' data-wrapper-class='ui-recurring-select' name='rs_weekly_interval' class='rs_weekly_interval rs_interval' value='1' size='2' /> " + $.fn.ice_cube_select.texts["weeks_on"] + ": </p> <div class='day_holder'>";
+      str = "<div id='ice_cube_select_modal' class='ice_cube_select_dialog_holder'> <div class='ice_cube_select_dialog'> <div class='ice_cube_select_dialog_content'> <h4>" + $.fn.ice_cube_select.texts["repeat"] + " <a href='#' id='ice_cube_select_cancel_button" title='" + $.fn.ice_cube_select.texts["cancel"] + "' Alt='" + $.fn.ice_cube_select.texts["cancel"] + "'></a> </h4> <p class='frequency-select-wrapper'> <label for='ice_cube_select_frequency'>" + $.fn.ice_cube_select.texts["frequency"] + ":</label> <select data-wrapper-class='ui-recurring-select' id='ice_cube_select_frequency' class='ice_cube_select_frequency' name='ice_cube_select_frequency'> <option value='Daily'>" + $.fn.ice_cube_select.texts["daily"] + "</option> <option value='Weekly'>" + $.fn.ice_cube_select.texts["weekly"] + "</option> <option value='Monthly'>" + $.fn.ice_cube_select.texts["monthly"] + "</option> <option value='Yearly'>" + $.fn.ice_cube_select.texts["yearly"] + "</option> </select> </p> <div class='daily_options freq_option_section'> <p> " + $.fn.ice_cube_select.texts["every"] + " <input type='text' data-wrapper-class='ui-recurring-select' name='ice_cube_select_daily_interval' class='ice_cube_select_daily_interval ice_cube_select_interval' value='1' size='2' title='Enter number of days to repeat' /> " + $.fn.ice_cube_select.texts["days"] + " </p> </div> <div class='weekly_options freq_option_section'> <p> " + $.fn.ice_cube_select.texts["every"] + " <input type='text' data-wrapper-class='ui-recurring-select' name='ice_cube_select_weekly_interval' class='ice_cube_select_weekly_interval ice_cube_select_interval' value='1' size='2' title='Enter number of weeks to repeat' /> " + $.fn.ice_cube_select.texts["weeks_on"] + ": </p> <div class='day_holder'>";
       for (day_of_week = _i = _ref = $.fn.ice_cube_select.texts["first_day_of_week"], _ref1 = 7 + $.fn.ice_cube_select.texts["first_day_of_week"]; _ref <= _ref1 ? _i < _ref1 : _i > _ref1; day_of_week = _ref <= _ref1 ? ++_i : --_i) {
         day_of_week = day_of_week % 7;
         str += "<a href='#' data-value='" + day_of_week + "'>" + $.fn.ice_cube_select.texts["days_first_letter"][day_of_week] + "</a>";
       }
-      return str += "</div> <span style='clear:both; visibility:hidden; height:1px;'>.</span> </div> <div class='monthly_options freq_option_section'> <p> " + $.fn.ice_cube_select.texts["every"] + " <input type='text' data-wrapper-class='ui-recurring-select' name='rs_monthly_interval' class='rs_monthly_interval rs_interval' value='1' size='2' /> " + $.fn.ice_cube_select.texts["months"] + ": </p> <p class='monthly_rule_type'> <span><label for='monthly_rule_type_day'>" + $.fn.ice_cube_select.texts["day_of_month"] + "</label><input type='radio' class='monthly_rule_type_day' name='monthly_rule_type' id='monthly_rule_type_day' value='true' /></span> <span><label for='monthly_rule_type_week'>" + $.fn.ice_cube_select.texts["day_of_week"] + "</label><input type='radio' class='monthly_rule_type_week' name='monthly_rule_type' id='monthly_rule_type_week' value='true' /></span> </p> <p class='rs_calendar_day'></p> <p class='rs_calendar_week'></p> </div> <div class='yearly_options freq_option_section'> <p> " + $.fn.ice_cube_select.texts["every"] + " <input type='text' data-wrapper-class='ui-recurring-select' name='rs_yearly_interval' class='rs_yearly_interval rs_interval' value='1' size='2' /> " + $.fn.ice_cube_select.texts["years"] + " </p> </div> <p class='rs_summary'> <span></span> </p> <div class='controls'> <input type='button' data-wrapper-class='ui-recurring-select' class='rs_save' value='" + $.fn.ice_cube_select.texts["ok"] + "' /> <input type='button' data-wrapper-class='ui-recurring-select' class='rs_cancel' value='" + $.fn.ice_cube_select.texts["cancel"] + "' /> </div> </div> </div> </div>";
+      return str += "</div> <span style='clear:both; visibility:hidden; height:1px;'>.</span> </div> <div class='monthly_options freq_option_section'> <p> " + $.fn.ice_cube_select.texts["every"] + " <input type='text' data-wrapper-class='ui-recurring-select' name='ice_cube_select_monthly_interval' class='ice_cube_select_monthly_interval ice_cube_select_interval' value='1' size='2' title='Enter number of months to repeat' /> " + $.fn.ice_cube_select.texts["months"] + ": </p> <p class='monthly_rule_type'> <span><label for='monthly_rule_type_day'>" + $.fn.ice_cube_select.texts["day_of_month"] + "</label><input type='radio' class='monthly_rule_type_day' name='monthly_rule_type' id='monthly_rule_type_day' value='true' /></span> <span><label for='monthly_rule_type_week'>" + $.fn.ice_cube_select.texts["day_of_week"] + "</label><input type='radio' class='monthly_rule_type_week' name='monthly_rule_type' id='monthly_rule_type_week' value='true' /></span> </p> <p class='ice_cube_select_calendar_day'></p> <p class='ice_cube_select_calendar_week'></p> </div> <div class='yearly_options freq_option_section'> <p> " + $.fn.ice_cube_select.texts["every"] + " <input type='text' data-wrapper-class='ui-recurring-select' name='ice_cube_select_yearly_interval' class='ice_cube_select_yearly_interval ice_cube_select_interval' value='1' size='2' title='Enter number of years to repeat' /> " + $.fn.ice_cube_select.texts["years"] + " </p> </div> <p class='ice_cube_select_summary'> <span></span> </p> <div class='controls'> <input type='button' data-wrapper-class='ui-recurring-select' id='ice_cube_select_save' class='ice_cube_select_save' value='" + $.fn.ice_cube_select.texts["ok"] + "' /> <input type='button' data-wrapper-class='ui-recurring-select' id='ice_cube_select_cancel' class='ice_cube_select_cancel' value='" + $.fn.ice_cube_select.texts["cancel"] + "' /> </div> </div> </div> </div>";
     };
 
     return IceCubeSelectDialog;
