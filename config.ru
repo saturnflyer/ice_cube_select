@@ -1,4 +1,4 @@
-ENV["BUNDLE_GEMFILE"] ||= File.expand_path("spec/dummy/Gemfile", __dir__)
+ENV["BUNDLE_GEMFILE"] ||= File.expand_path("Gemfile", __dir__)
 require "bundler/setup"
 require ::File.expand_path("spec/dummy/config/environment", __dir__)
 
