@@ -1,4 +1,0 @@
-eval_gemfile "vendor/ice_cube-select/Gemfile"
-
-gem "listen"
-gem "webrick"
