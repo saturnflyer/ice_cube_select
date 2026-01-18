@@ -1,5 +1,138 @@
 /* IceCubeSelect - Dialog Styles */
 
+/* ==========================================================================
+   CSS Custom Properties
+
+   QUICK THEMING (modern browsers with OKLCH support):
+   Override just these base values to re-theme the entire component:
+
+     :root {
+       --ice-cube-select-gray-hue: 30;         [warm grays, 0-360]
+       --ice-cube-select-primary-hue: 200;     [accent color hue]
+       --ice-cube-select-primary-chroma: 0.12; [accent saturation]
+       --ice-cube-select-focus-hue: 260;       [focus ring hue]
+     }
+
+   FINE-GRAINED CONTROL:
+   Override individual derived variables (works in all browsers):
+
+     :root {
+       --ice-cube-select-primary: #3b82f6;
+       --ice-cube-select-text: #1f2937;
+     }
+   ========================================================================== */
+
+/* Fallback values for browsers without OKLCH support */
+:root {
+  --ice-cube-select-primary: #677889;
+  --ice-cube-select-primary-gradient-start: #6a7b8c;
+  --ice-cube-select-primary-gradient-end: #677889;
+  --ice-cube-select-text: #222;
+  --ice-cube-select-text-muted: #666;
+  --ice-cube-select-text-disabled: #aaa;
+  --ice-cube-select-text-on-primary: #fff;
+  --ice-cube-select-button-bg: #f5f5f5;
+  --ice-cube-select-button-bg-gradient-end: #f1f1f1;
+  --ice-cube-select-button-bg-hover: #f9f9f9;
+  --ice-cube-select-button-text: #444;
+  --ice-cube-select-button-text-hover: #222;
+  --ice-cube-select-button-save-text: #333;
+  --ice-cube-select-button-cancel-text: #757575;
+  --ice-cube-select-dialog-bg: #f6f6f6;
+  --ice-cube-select-item-bg: #fff;
+  --ice-cube-select-item-bg-hover: #e8e8ed;
+  --ice-cube-select-overlay-bg: rgba(255, 255, 255, 0.2);
+  --ice-cube-select-border: #ccc;
+  --ice-cube-select-border-hover: #aaa;
+  --ice-cube-select-border-dialog: #acacac;
+  --ice-cube-select-border-focus: #1e90ff;
+  --ice-cube-select-shadow-light: rgba(0, 0, 0, 0.1);
+  --ice-cube-select-shadow-medium: rgba(0, 0, 0, 0.2);
+  --ice-cube-select-shadow-dialog: rgba(0, 0, 0, 0.25);
+  --ice-cube-select-loading-text: #999;
+}
+
+/* OKLCH color system for modern browsers */
+@supports (color: oklch(0% 0 0)) {
+  :root {
+    /* =======================================================
+       BASE CONFIGURATION
+       Adjust these to theme the entire component at once
+       ======================================================= */
+
+    /* Gray scale hue - 0 for neutral, adjust for warm/cool tint */
+    --ice-cube-select-gray-hue: 250;
+    --ice-cube-select-gray-chroma: 0.006;
+
+    /* Primary/accent color (selected states) */
+    --ice-cube-select-primary-hue: 250;
+    --ice-cube-select-primary-chroma: 0.04;
+    --ice-cube-select-primary-lightness: 55%;
+
+    /* Focus ring color */
+    --ice-cube-select-focus-hue: 250;
+    --ice-cube-select-focus-chroma: 0.18;
+    --ice-cube-select-focus-lightness: 65%;
+
+    /* =======================================================
+       DERIVED COLORS
+       Automatically calculated from base values above
+       ======================================================= */
+
+    /* Primary/accent */
+    --ice-cube-select-primary: oklch(
+      var(--ice-cube-select-primary-lightness)
+      var(--ice-cube-select-primary-chroma)
+      var(--ice-cube-select-primary-hue)
+    );
+    --ice-cube-select-primary-gradient-start: oklch(
+      calc(var(--ice-cube-select-primary-lightness) + 2%)
+      var(--ice-cube-select-primary-chroma)
+      var(--ice-cube-select-primary-hue)
+    );
+    --ice-cube-select-primary-gradient-end: var(--ice-cube-select-primary);
+
+    /* Text - gray scale at different lightness levels */
+    --ice-cube-select-text: oklch(25% var(--ice-cube-select-gray-chroma) var(--ice-cube-select-gray-hue));
+    --ice-cube-select-text-muted: oklch(48% var(--ice-cube-select-gray-chroma) var(--ice-cube-select-gray-hue));
+    --ice-cube-select-text-disabled: oklch(70% var(--ice-cube-select-gray-chroma) var(--ice-cube-select-gray-hue));
+    --ice-cube-select-text-on-primary: oklch(100% 0 0);
+
+    /* Buttons */
+    --ice-cube-select-button-bg: oklch(97% var(--ice-cube-select-gray-chroma) var(--ice-cube-select-gray-hue));
+    --ice-cube-select-button-bg-gradient-end: oklch(95% var(--ice-cube-select-gray-chroma) var(--ice-cube-select-gray-hue));
+    --ice-cube-select-button-bg-hover: oklch(98% var(--ice-cube-select-gray-chroma) var(--ice-cube-select-gray-hue));
+    --ice-cube-select-button-text: oklch(35% var(--ice-cube-select-gray-chroma) var(--ice-cube-select-gray-hue));
+    --ice-cube-select-button-text-hover: oklch(25% var(--ice-cube-select-gray-chroma) var(--ice-cube-select-gray-hue));
+    --ice-cube-select-button-save-text: oklch(30% var(--ice-cube-select-gray-chroma) var(--ice-cube-select-gray-hue));
+    --ice-cube-select-button-cancel-text: oklch(52% var(--ice-cube-select-gray-chroma) var(--ice-cube-select-gray-hue));
+
+    /* Backgrounds */
+    --ice-cube-select-dialog-bg: oklch(97% var(--ice-cube-select-gray-chroma) var(--ice-cube-select-gray-hue));
+    --ice-cube-select-item-bg: oklch(100% 0 0);
+    --ice-cube-select-item-bg-hover: oklch(92% 0.012 var(--ice-cube-select-primary-hue));
+    --ice-cube-select-overlay-bg: oklch(100% 0 0 / 20%);
+
+    /* Borders */
+    --ice-cube-select-border: oklch(84% var(--ice-cube-select-gray-chroma) var(--ice-cube-select-gray-hue));
+    --ice-cube-select-border-hover: oklch(73% var(--ice-cube-select-gray-chroma) var(--ice-cube-select-gray-hue));
+    --ice-cube-select-border-dialog: oklch(75% var(--ice-cube-select-gray-chroma) var(--ice-cube-select-gray-hue));
+    --ice-cube-select-border-focus: oklch(
+      var(--ice-cube-select-focus-lightness)
+      var(--ice-cube-select-focus-chroma)
+      var(--ice-cube-select-focus-hue)
+    );
+
+    /* Shadows */
+    --ice-cube-select-shadow-light: oklch(0% 0 0 / 10%);
+    --ice-cube-select-shadow-medium: oklch(0% 0 0 / 20%);
+    --ice-cube-select-shadow-dialog: oklch(0% 0 0 / 25%);
+
+    /* Loading state */
+    --ice-cube-select-loading-text: oklch(67% var(--ice-cube-select-gray-chroma) var(--ice-cube-select-gray-hue));
+  }
+}
+
 /* Cancel button X icon (inline SVG) */
 .ice_cube_select_dialog_content h4 a {
   float: right;
@@ -25,18 +158,18 @@
 /* Resets */
 .ice_cube_select_dialog_holder {
   font-size: 14px;
-  color: black;
+  color: var(--ice-cube-select-text);
 }
 
 .ice_cube_select_dialog_holder a {
-  color: black;
+  color: var(--ice-cube-select-text);
 }
 
 .ice_cube_select_dialog_holder input[type=button] {
   font: small/normal Arial, sans-serif;
-  background: #F5F5F5;
-  color: #444;
-  border: 1px solid #ccc;
+  background: var(--ice-cube-select-button-bg);
+  color: var(--ice-cube-select-button-text);
+  border: 1px solid var(--ice-cube-select-border);
   font-size: 11px;
   font-weight: bold;
   height: 27px;
@@ -45,29 +178,29 @@
   padding: 0 8px;
   text-align: center;
   border-radius: 2px;
-  background-image: linear-gradient(to bottom, #f5f5f5, #f1f1f1);
+  background-image: linear-gradient(to bottom, var(--ice-cube-select-button-bg), var(--ice-cube-select-button-bg-gradient-end));
   cursor: pointer;
 }
 
 .ice_cube_select_dialog_holder input[type=button]:hover {
-  border-color: #aaa;
-  color: #222;
-  background-color: #f9f9f9;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  border-color: var(--ice-cube-select-border-hover);
+  color: var(--ice-cube-select-button-text-hover);
+  background-color: var(--ice-cube-select-button-bg-hover);
+  box-shadow: 0px 1px 2px var(--ice-cube-select-shadow-medium);
 }
 
 .ice_cube_select_dialog_holder input[type=button]:focus {
-  border-color: #1E90FF;
+  border-color: var(--ice-cube-select-border-focus);
 }
 
 .ice_cube_select_dialog_holder input[type=button]:active {
-  border-color: #1E90FF;
+  border-color: var(--ice-cube-select-border-focus);
 }
 
 /* Defaults */
 .ice_cube_select_dialog_holder {
   font-family: helvetica, arial, sans-serif;
-  color: #222;
+  color: var(--ice-cube-select-text);
   font-size: 12px;
 }
 
@@ -85,15 +218,15 @@ select option.bold {
   top: 0;
   bottom: 0;
   padding-left: 50%;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--ice-cube-select-overlay-bg);
   z-index: 50;
 }
 
 /* Dialog box */
 .ice_cube_select_dialog {
-  background-color: #f6f6f6;
-  border: 1px solid #acacac;
-  box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.25);
+  background-color: var(--ice-cube-select-dialog-bg);
+  border: 1px solid var(--ice-cube-select-border-dialog);
+  box-shadow: 1px 3px 8px var(--ice-cube-select-shadow-dialog);
   border-radius: 7px;
   display: inline-block;
   min-width: 200px;
@@ -145,7 +278,7 @@ select option.bold {
 
 /* Day holder (weekly view) */
 .day_holder {
-  border-left: 1px solid #ccc;
+  border-left: 1px solid var(--ice-cube-select-border);
   position: relative;
   margin-top: 5px;
   height: 26px;
@@ -156,25 +289,25 @@ select option.bold {
   padding: 5px 7px;
   font-size: 14px;
   border-style: solid;
-  border-color: #ccc;
+  border-color: var(--ice-cube-select-border);
   border-width: 1px 1px 1px 0;
   float: left;
   text-decoration: none;
   font-weight: bold;
-  box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  box-shadow: inset 0px 1px 2px var(--ice-cube-select-shadow-light);
+  background-color: var(--ice-cube-select-item-bg);
 }
 
 .day_holder a.selected {
-  background-color: #677889;
-  color: #fff;
-  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.2);
-  background-image: linear-gradient(to bottom, #677890, #677889);
+  background-color: var(--ice-cube-select-primary);
+  color: var(--ice-cube-select-text-on-primary);
+  box-shadow: inset 1px 1px 2px var(--ice-cube-select-shadow-medium);
+  background-image: linear-gradient(to bottom, var(--ice-cube-select-primary-gradient-start), var(--ice-cube-select-primary-gradient-end));
 }
 
 .day_holder a:hover {
   cursor: pointer;
-  background-color: #dde;
+  background-color: var(--ice-cube-select-item-bg-hover);
 }
 
 /* Calendar day/week views */
@@ -191,28 +324,28 @@ select option.bold {
   padding: 5px 3px;
   font-size: 12px;
   border-style: solid;
-  border-color: #ccc;
+  border-color: var(--ice-cube-select-border);
   border-width: 1px;
   margin: -1px 0 0 -1px;
   line-height: 10px;
-  background-color: #fff;
+  background-color: var(--ice-cube-select-item-bg);
   font-weight: bold;
   text-decoration: none;
 }
 
 .ice_cube_select_calendar_day a.selected,
 .ice_cube_select_calendar_week a.selected {
-  background-color: #677889;
-  color: #fff;
-  background-image: linear-gradient(to bottom, #677890, #677889);
-  box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.2);
-  text-shadow: 0 1px 1px #333;
+  background-color: var(--ice-cube-select-primary);
+  color: var(--ice-cube-select-text-on-primary);
+  background-image: linear-gradient(to bottom, var(--ice-cube-select-primary-gradient-start), var(--ice-cube-select-primary-gradient-end));
+  box-shadow: inset 0px 1px 2px var(--ice-cube-select-shadow-medium);
+  text-shadow: 0 1px 1px var(--ice-cube-select-button-save-text);
 }
 
 .ice_cube_select_calendar_day a:hover,
 .ice_cube_select_calendar_week a:hover {
   cursor: pointer;
-  background-color: #dde;
+  background-color: var(--ice-cube-select-item-bg-hover);
 }
 
 .ice_cube_select_calendar_day a.end_of_month {
@@ -237,18 +370,18 @@ select option.bold {
 .ice_cube_select_summary {
   padding: 0;
   margin-top: 15px;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--ice-cube-select-border);
 }
 
 .ice_cube_select_summary span {
   font-weight: bold;
-  border-top: 1px solid #fff;
+  border-top: 1px solid var(--ice-cube-select-item-bg);
   display: block;
   padding: 10px 0 5px 0;
 }
 
 .ice_cube_select_summary.fetching {
-  color: #999;
+  color: var(--ice-cube-select-loading-text);
 }
 
 .ice_cube_select_summary label {
@@ -268,15 +401,15 @@ select option.bold {
 }
 
 .controls input[type=button].ice_cube_select_save {
-  color: #333;
+  color: var(--ice-cube-select-button-save-text);
 }
 
 .controls input[type=button].ice_cube_select_cancel {
-  color: #666;
+  color: var(--ice-cube-select-text-muted);
 }
 
 .controls input[type=button].disabled {
-  color: #aaa;
+  color: var(--ice-cube-select-text-disabled);
 }
 
 /* Animated state */
@@ -293,5 +426,5 @@ select option.bold {
 
 /* Cancel button styling */
 #ice_cube_select_cancel_button {
-  color: #757575;
+  color: var(--ice-cube-select-button-cancel-text);
 }
