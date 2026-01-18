@@ -1,18 +1,18 @@
 <%= form_for Sample.new, url: samples_path do |f| %>
 
   <p>
-    <%= f.label :recurring_rules, "no defaults and not set" %><br/>
-    <%= f.select_recurring :recurring_rules %>
+    <%= f.label :no_defaults_not_set, "no defaults and not set" %><br/>
+    <%= f.select_recurring :no_defaults_not_set %>
   </p>
 
   <p>
-    <%= f.label :current_custom_rule, "no defaults but custom rule" %><br/>
-    <%= f.select_recurring :current_custom_rule %>
+    <%= f.label :no_defaults_with_custom, "no defaults but custom rule" %><br/>
+    <%= f.select_recurring :no_defaults_with_custom %>
   </p>
 
   <p>
-    <%= f.label :recurring_rules, "defaults but not set" %><br/>
-    <%= f.select_recurring :recurring_rules, [
+    <%= f.label :with_defaults_not_set, "defaults but not set" %><br/>
+    <%= f.select_recurring :with_defaults_not_set, [
       IceCube::Rule.weekly(2).day(:monday, :wednesday, :friday),
       IceCube::Rule.monthly.day_of_month(-1),
       IceCube::Rule.yearly.day_of_year(1)
@@ -20,27 +20,27 @@
   </p>
 
   <p>
-    <%= f.label :current_existing_rule, "default and set" %><br/>
-    <%= f.select_recurring :current_existing_rule, [
+    <%= f.label :with_defaults_and_set, "default and set" %><br/>
+    <%= f.select_recurring :with_defaults_and_set, [
       IceCube::Rule.weekly.day(:monday, :wednesday, :friday),
       IceCube::Rule.monthly.day_of_month(-1)
-    ], :allow_blank => true %>
+    ], allow_blank: true %>
   </p>
 
   <p>
-    <%= f.label :current_custom_rule, "defaults and custom" %><br/>
-    <%= f.select_recurring :current_custom_rule, [
+    <%= f.label :with_defaults_and_custom, "defaults and custom" %><br/>
+    <%= f.select_recurring :with_defaults_and_custom, [
       IceCube::Rule.weekly.day(:monday, :wednesday, :friday),
       IceCube::Rule.monthly.day_of_month(-1)
     ] %>
   </p>
 
   <p>
-    <%= f.label :non_recurring_rule, "default with custom non-recurring rule" %><br/>
-    <%= f.select_recurring :non_recurring_rule, [
+    <%= f.label :non_recurring_with_defaults, "default with custom non-recurring rule" %><br/>
+    <%= f.select_recurring :non_recurring_with_defaults, [
       ["Custom non-blank option", 1],
       IceCube::Rule.monthly.day_of_month(-1)
-    ], :allow_blank => true %>
+    ], allow_blank: true %>
   </p>
 
   <p>

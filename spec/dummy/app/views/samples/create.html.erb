@@ -1,4 +1,22 @@
 <section>
-  <h1>Fake Model Params</h1>
-  <%= @fake_model %>
+  <h1>Submitted Values</h1>
+
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Attribute</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @fake_model.each do |attribute, value| %>
+        <tr>
+          <td><strong><%= attribute.to_s.humanize %></strong></td>
+          <td><code><%= value %></code></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <p><%= link_to "Back", samples_path %></p>
 </section>

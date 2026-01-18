@@ -7,8 +7,23 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <h1>IceCubeSelect Demo</h1>
 
 <%= yield %>
+<section>
+  <h2>Features</h2>
+  <p>This gem provides a useful interface for creating recurring rules for the <%= link_to "ice_cube", "https://github.com/seejohnrun/ice_cube" %> gem and was built from the
+    original <%= link_to "recurring_select", "https://github.com/GetJobber/recurring_select" %> gem.
+  </p>
+  <h2>Usage</h2>
+  <p>
+    <%= link_to "View the README", "https://github.com/saturnflyer/ice_cube_select/blob/main/README.md" %>
+  </p>
+  <h2>Find me on GitHub</h2>
+  <p>
+    <a href="https://github.com/saturnflyer/ice_cube_select">https://github.com/saturnflyer/ice_cube_select</a>
+  </p>
+</section>
 
 <%= javascript_include_tag "ice_cube_select" %>
 <%= javascript_include_tag "ice_cube_select_dialog" %>
