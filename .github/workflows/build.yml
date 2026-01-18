@@ -50,5 +50,7 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true
+    - name: Install Playwright browsers
+      run: npx playwright install --with-deps chromium
     - name: Run tests
       run: bundle exec rake

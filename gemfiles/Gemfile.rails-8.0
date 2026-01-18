@@ -9,3 +9,7 @@ gem "rspec-rails", ">= 2.14", "< 8"
 gem "rake"
 gem "reissue"
 gem "standard"
+
+gem "capybara"
+gem "capybara-playwright-driver"
+gem "puma"
