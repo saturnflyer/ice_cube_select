@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe IceCubeSelect do
   it "should be a module" do
@@ -25,26 +25,25 @@ describe IceCubeSelect do
 
   describe "#filter_params" do
     it "Monthly with day_of_week" do
-      expect(IceCubeSelect.filter_params({
-        :validations => { "day_of_week" => { "wednesday" => %w[1 3] } },
-        :rule_type => "IceCube::MonthlyRule",
-        :interval => 1
+      expect(IceCubeSelect.send(:filter_params, {
+        validations: {"day_of_week" => {"wednesday" => %w[1 3]}},
+        rule_type: "IceCube::MonthlyRule",
+        interval: 1
       })).to eq({
-        :validations => { :day_of_week => { :wednesday => [1, 3] } },
-        :rule_type => "IceCube::MonthlyRule",
-        :interval => 1
+        validations: {day_of_week: {wednesday: [1, 3]}},
+        rule_type: "IceCube::MonthlyRule",
+        interval: 1
       })
 
-      expect(IceCubeSelect.filter_params({
-        :validations => { "day_of_week" => { "2" => %w[1 3] } },
-        :rule_type => "IceCube::MonthlyRule",
-        :interval => 1
+      expect(IceCubeSelect.send(:filter_params, {
+        validations: {"day_of_week" => {"2" => %w[1 3]}},
+        rule_type: "IceCube::MonthlyRule",
+        interval: 1
       })).to eq({
-        :validations => { :day_of_week => { 2 => [1, 3] } },
-        :rule_type => "IceCube::MonthlyRule",
-        :interval => 1
+        validations: {day_of_week: {2 => [1, 3]}},
+        rule_type: "IceCube::MonthlyRule",
+        interval: 1
       })
     end
   end
-
 end

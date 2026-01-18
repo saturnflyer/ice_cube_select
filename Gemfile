@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 eval_gemfile "gemfiles/Gemfile.rails-8.0"
 
 # for deployments of the sample app

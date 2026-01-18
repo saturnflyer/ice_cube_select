@@ -13,17 +13,16 @@ module IceCubeSelectHelper
         @template.class.send(:include, IceCubeSelectHelper::FormHelper)
       end
 
-      @template.select_recurring(@object_name, method, default_schedules, options.merge(:object => @object), html_options)
+      @template.select_recurring(@object_name, method, default_schedules, options.merge(object: @object), html_options)
     end
   end
 
   module FormOptionsHelper
     def recurring_options_for_select(currently_selected_rule = nil, default_schedules = nil, options = {})
-
       options_array = []
       blank_option_label = options[:blank_label] || I18n.t("ice_cube_select.not_recurring")
       blank_option = [blank_option_label, "null"]
-      separator = [I18n.t("ice_cube_select.or"), {:disabled => true}]
+      separator = [I18n.t("ice_cube_select.or"), {disabled: true}]
 
       if default_schedules.blank?
         if currently_selected_rule.present?
@@ -38,11 +37,11 @@ module IceCubeSelectHelper
       else
         options_array << blank_option if options[:allow_blank]
 
-        options_array += default_schedules.collect{|dc|
+        options_array += default_schedules.collect { |dc|
           ice_cube_rule_to_option(dc)
         }
 
-        if currently_selected_rule.present? and !current_rule_in_defaults?(currently_selected_rule, default_schedules)
+        if currently_selected_rule.present? && !current_rule_in_defaults?(currently_selected_rule, default_schedules)
           options_array << ice_cube_rule_to_option(currently_selected_rule, true)
           custom_label = [I18n.t("ice_cube_select.new_custom_schedule"), "custom"]
         else
@@ -73,7 +72,7 @@ module IceCubeSelectHelper
     end
 
     def current_rule_in_defaults?(currently_selected_rule, default_schedules)
-      default_schedules.any?{|option|
+      default_schedules.any? { |option|
         option == currently_selected_rule or
           (option.is_a?(Array) and option[1] == currently_selected_rule)
       }

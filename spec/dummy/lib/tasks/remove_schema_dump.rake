@@ -4,7 +4,7 @@ Rake::TaskManager.class_eval do
   end
 end
 
-Rake.application.remove_task('db:schema:dump')
+Rake.application.remove_task("db:schema:dump")
 namespace :db do
   namespace :schema do
     task :dump do
