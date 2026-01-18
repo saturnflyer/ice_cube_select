@@ -518,7 +518,8 @@
       let dayButtons = '';
       for (let d = firstDay; d < firstDay + 7; d++) {
         const dayOfWeek = d % 7;
-        dayButtons += `<a href="#" data-value="${dayOfWeek}">${texts.days_first_letter[dayOfWeek]}</a>`;
+        const fullDayName = this.fullStringWeekday(dayOfWeek);
+        dayButtons += `<a href="#" data-value="${dayOfWeek}" aria-label="${fullDayName}">${texts.days_first_letter[dayOfWeek]}</a>`;
       }
 
       return `
