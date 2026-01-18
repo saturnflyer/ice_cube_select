@@ -1,10 +1,10 @@
 # Ice Cube Select
 
-[![Code Climate](https://codeclimate.com/github/saturnflyer/ice_cube_select.png)](https://codeclimate.com/github/saturnflyer/ice_cube_select)
+[![QLTY](https://qlty.sh/github/gh/ice_cube_select.png)](https://qlty.sh/gh/saturnflyer/ice_cube_select)
 
 This gem adds selectors and helpers for working with recurring schedules in a Rails app. It uses [ice_cube](https://github.com/seejohnrun/ice_cube) recurring scheduling gem.
 
-Check out the [live demo](http://ice-cube-select.herokuapp.com/) (code in [spec/dummy](https://github.com/saturnflyer/ice_cube_select/tree/master/spec/dummy) folder)
+Check out the demo code in [spec/dummy](https://github.com/saturnflyer/ice_cube_select/tree/master/spec/dummy)folder
 
 ## Requirements
 
@@ -131,4 +131,4 @@ To release a new version:
 
 This project rocks and uses MIT-LICENSE.
 
-Based on https://github.com/GetJobber/recurring_select
+Based on https://github.com/gregschmit/recurring_select
