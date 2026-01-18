@@ -6,10 +6,15 @@ This gem adds selectors and helpers for working with recurring schedules in a Ra
 
 Check out the [live demo](http://ice-cube-select-demo.herokuapp.com/) (code in [spec/dummy](https://github.com/saturnflyer/ice_cube_select/tree/master/spec/dummy) folder)
 
+## Requirements
+
+- Ruby 3.2+
+- Rails 8.0+
+- [ice_cube](https://github.com/seejohnrun/ice_cube) 0.16+
+
+No jQuery or other JavaScript framework dependencies. Uses vanilla JavaScript.
 
 ## Usage
-
-Basic selector:
 
 Add the gem to your Gemfile:
 
@@ -17,15 +22,17 @@ Add the gem to your Gemfile:
 gem 'ice_cube_select'
 ```
 
-### Require Assets
+### Assets
 
-#### Desktop Interface:
-- application.js: `//= require ice_cube_select`
-- application.css: `//= require ice_cube_select`
+Include the stylesheet and JavaScript in your layout:
 
-#### jQuery Mobile Interface:
-- application.js: `//= require jquery-mobile-rs`
-- application.css: `//= require jquery-mobile-rs`
+```erb
+<%= stylesheet_link_tag "ice_cube_select" %>
+<%= javascript_include_tag "ice_cube_select" %>
+<%= javascript_include_tag "ice_cube_select_dialog" %>
+```
+
+Works with Propshaft (Rails 8 default) out of the box.
 
 ### Form Helper
 
@@ -73,7 +80,7 @@ IceCubeSelect.dirty_hash_to_rule(params)
 
 ### I18n
 
-Ice Cube Select is I18n aware
+Ice Cube Select is I18n aware.
 
 You can create a locale file like this:
 
@@ -88,11 +95,10 @@ en:
     or: or
 ```
 
-You have to translate JavaScript texts too by including the locale file in your assets manifest. Only French and English are supported for the moment.
+For JavaScript translations, include the locale file after the main scripts. French and English are supported:
 
-```
-//= require ice_cube_select/en
-//= require ice_cube_select/fr
+```erb
+<%= javascript_include_tag "ice_cube_select/fr" %>
 ```
 
 ## Testing and Development
@@ -100,20 +106,26 @@ You have to translate JavaScript texts too by including the locale file in your 
 Start the dummy server for clicking around the interface:
 
 ```console
+cd spec/dummy
 rails s
 ```
 
-Use [Guard](https://github.com/guard/guard) and RSpec for all tests. I'd
-love to get Jasmine running also, but haven't had time yet.
+Run specs with:
 
-Tests can be ran against different versions of Rails like so:
-
-```
-BUNDLE_GEMFILE=gemfiles/Gemfile.rails-7.0.x bundle install
-BUNDLE_GEMFILE=gemfiles/Gemfile.rails-7.0.x bundle exec rspec spec
+```console
+bundle exec rspec
 ```
 
 Feel free to open issues or send pull requests.
+
+This project is managed with [Reissue](https://github.com/SOFware/reissue).
+
+To release a new version, make your changes and be sure to update the CHANGELOG.md.
+
+To release a new version:
+
+    bundle exec rake build:checksum
+    bundle exec rake release
 
 ## Licensing
 
