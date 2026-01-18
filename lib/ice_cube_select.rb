@@ -31,43 +31,56 @@ module IceCubeSelect
   private
 
   def self.filter_params(params)
-    params.reject!{|key, value| value.blank? || value=="null" }
+    params.reject! { |key, value| value.blank? || value == "null" }
 
     params[:interval] = params[:interval].to_i if params[:interval]
     params[:week_start] = params[:week_start].to_i if params[:week_start]
 
     params[:validations] ||= {}
-    params[:validations].symbolize_keys!
+    params[:validations] = deep_symbolize_keys(params[:validations])
 
     if params[:validations][:day]
-      params[:validations][:day] = params[:validations][:day].collect(&:to_i)
+      params[:validations][:day] = to_int_array(params[:validations][:day])
     end
 
     if params[:validations][:day_of_month]
-      params[:validations][:day_of_month] = params[:validations][:day_of_month].collect(&:to_i)
+      params[:validations][:day_of_month] = to_int_array(params[:validations][:day_of_month])
     end
 
-    # this is soooooo ugly
     if params[:validations][:day_of_week]
-      params[:validations][:day_of_week] ||= {}
-      if params[:validations][:day_of_week].length > 0 and not params[:validations][:day_of_week].keys.first =~ /\d/
-        params[:validations][:day_of_week].symbolize_keys!
-      else
-        originals = params[:validations][:day_of_week].dup
-        params[:validations][:day_of_week] = {}
-        originals.each{|key, value|
-          params[:validations][:day_of_week][key.to_i] = value
-        }
+      dow = params[:validations][:day_of_week]
+      params[:validations][:day_of_week] = {}
+      dow.each do |key, value|
+        # Keep symbolic keys as symbols, convert numeric strings to integers
+        key_str = key.to_s
+        new_key = key_str.match?(/^\d+$/) ? key_str.to_i : key.to_sym
+        params[:validations][:day_of_week][new_key] = to_int_array(value)
       end
-      params[:validations][:day_of_week].each{|key, value|
-        params[:validations][:day_of_week][key] = value.collect(&:to_i)
-      }
     end
 
     if params[:validations][:day_of_year]
-      params[:validations][:day_of_year] = params[:validations][:day_of_year].collect(&:to_i)
+      params[:validations][:day_of_year] = to_int_array(params[:validations][:day_of_year])
     end
 
     params
+  end
+
+  def self.to_int_array(value)
+    return [] if value.nil?
+    if value.is_a?(Hash)
+      value.values.flatten.map(&:to_i)
+    elsif value.is_a?(Array)
+      value.flatten.map(&:to_i)
+    else
+      [value.to_i]
+    end
+  end
+
+  def self.deep_symbolize_keys(hash)
+    return hash unless hash.is_a?(Hash)
+    hash.each_with_object({}) do |(key, value), result|
+      new_key = key.respond_to?(:to_sym) ? key.to_sym : key
+      result[new_key] = value.is_a?(Hash) ? deep_symbolize_keys(value) : value
+    end
   end
 end

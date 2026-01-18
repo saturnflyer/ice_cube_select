@@ -1,9 +1,10 @@
+
 class SamplesController < ApplicationController
 
   def index
   end
 
   def create
-    @fake_model = params[:fake_model]
+    @fake_model = params[:sample]
   end
 end

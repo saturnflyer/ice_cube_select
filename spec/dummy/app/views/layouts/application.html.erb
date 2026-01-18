@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dummy</title>
-  <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application" %>
+  <title>IceCubeSelect Demo</title>
+  <%= stylesheet_link_tag "application" %>
+  <%= stylesheet_link_tag "ice_cube_select" %>
   <%= csrf_meta_tags %>
-    <%= javascript_importmap_tags %>
 </head>
 <body>
 
 <%= yield %>
 
+<%= javascript_include_tag "ice_cube_select" %>
+<%= javascript_include_tag "ice_cube_select_dialog" %>
 </body>
 </html>

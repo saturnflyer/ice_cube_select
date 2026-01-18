@@ -86,24 +86,29 @@ module IceCubeSelectHelper
     def ice_cube_select_html_options(html_options)
       html_options = html_options.stringify_keys
       html_options["class"] = (html_options["class"].to_s.split + ["ice_cube_select"]).join(" ")
+      html_options["data-translate-url"] ||= translate_url_path
       html_options
+    end
+
+    def translate_url_path
+      base = Rails.application.config.action_controller.relative_url_root || ""
+      "#{base}/ice_cube_select/translate"
     end
   end
 
-  class IceCubeSelectTag < ActionView::Helpers::Tags::Base
+  class IceCubeSelectTag < ActionView::Helpers::Tags::Select
     include IceCubeSelectHelper::FormOptionsHelper
     include SelectHTMLOptions
 
+    delegate :options_for_select, to: :@template_object
+
     def initialize(object, method, template_object, default_schedules = nil, options = {}, html_options = {})
       @default_schedules = default_schedules
-      @choices = @choices.to_a if @choices.is_a?(Range)
-      @method_name = method.to_s
-      @object_name = object.to_s
-      @html_options = ice_cube_select_html_options(html_options)
       @template_object = template_object
-      add_default_name_and_id(@html_options)
+      html_options = ice_cube_select_html_options(html_options)
 
-      super(object, method, template_object, options)
+      # Select expects: object_name, method_name, template_object, choices, options, html_options
+      super(object, method, template_object, [], options, html_options)
     end
 
     def render

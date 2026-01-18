@@ -21,3 +21,9 @@ end
 APP_RAKEFILE = File.expand_path("../spec/dummy/Rakefile", __FILE__)
 load 'rails/tasks/engine.rake'
 
+require "reissue/gem"
+
+Reissue::Task.create :reissue do |task|
+  task.version_file = "lib/ice_cube_select/version.rb"
+  task.fragment = :git
+end

@@ -2,5 +2,3 @@ eval_gemfile "../../Gemfile"
 
 gem "listen"
 gem "webrick"
-
-gem "importmap-rails", "~> 1.1"

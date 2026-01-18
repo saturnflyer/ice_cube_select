@@ -1,0 +1,297 @@
+/* IceCubeSelect - Dialog Styles */
+
+/* Cancel button X icon (inline SVG) */
+.ice_cube_select_dialog_content h4 a {
+  float: right;
+  height: 16px;
+  width: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'%3E%3C/line%3E%3Cline x1='6' y1='6' x2='18' y2='18'%3E%3C/line%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Loading spinner (inline SVG animation) */
+.ice_cube_select_summary.fetching span {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpath d='M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83'%3E%3Canimate attributeName='stroke-opacity' values='1;0.5;1' dur='1s' repeatCount='indefinite'/%3E%3C/path%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 13px;
+  width: 13px;
+  margin-top: -4px;
+  padding-right: 5px;
+}
+
+/* Resets */
+.ice_cube_select_dialog_holder {
+  font-size: 14px;
+  color: black;
+}
+
+.ice_cube_select_dialog_holder a {
+  color: black;
+}
+
+.ice_cube_select_dialog_holder input[type=button] {
+  font: small/normal Arial, sans-serif;
+  background: #F5F5F5;
+  color: #444;
+  border: 1px solid #ccc;
+  font-size: 11px;
+  font-weight: bold;
+  height: 27px;
+  line-height: 27px;
+  outline: none;
+  padding: 0 8px;
+  text-align: center;
+  border-radius: 2px;
+  background-image: linear-gradient(to bottom, #f5f5f5, #f1f1f1);
+  cursor: pointer;
+}
+
+.ice_cube_select_dialog_holder input[type=button]:hover {
+  border-color: #aaa;
+  color: #222;
+  background-color: #f9f9f9;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.ice_cube_select_dialog_holder input[type=button]:focus {
+  border-color: #1E90FF;
+}
+
+.ice_cube_select_dialog_holder input[type=button]:active {
+  border-color: #1E90FF;
+}
+
+/* Defaults */
+.ice_cube_select_dialog_holder {
+  font-family: helvetica, arial, sans-serif;
+  color: #222;
+  font-size: 12px;
+}
+
+/* Specifics */
+select option.bold {
+  font-weight: bold;
+  color: red;
+}
+
+/* Dialog holder (overlay) */
+.ice_cube_select_dialog_holder {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding-left: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 50;
+}
+
+/* Dialog box */
+.ice_cube_select_dialog {
+  background-color: #f6f6f6;
+  border: 1px solid #acacac;
+  box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 7px;
+  display: inline-block;
+  min-width: 200px;
+  margin-left: -125px;
+  overflow: hidden;
+  position: relative;
+  transition: margin-top 0.2s ease, min-height 0.2s ease;
+}
+
+/* Dialog content */
+.ice_cube_select_dialog_content {
+  padding: 10px;
+}
+
+.ice_cube_select_dialog_content h4 {
+  font-size: 16px;
+  padding: 0;
+  margin: 0 0 10px 0;
+}
+
+.ice_cube_select_dialog_content p {
+  padding: 5px 0;
+  margin: 0;
+  line-height: 14px;
+}
+
+.ice_cube_select_dialog_content p label {
+  margin-right: 10px;
+}
+
+.ice_cube_select_dialog_content a {
+  box-sizing: content-box;
+}
+
+/* Frequency option sections */
+.freq_option_section {
+  display: none;
+}
+
+.freq_option_section label {
+  font-weight: bold;
+}
+
+.ice_cube_select_interval {
+  width: 30px;
+  text-align: center;
+  display: inline-block;
+}
+
+/* Day holder (weekly view) */
+.day_holder {
+  border-left: 1px solid #ccc;
+  position: relative;
+  margin-top: 5px;
+  height: 26px;
+}
+
+.day_holder a {
+  display: block;
+  padding: 5px 7px;
+  font-size: 14px;
+  border-style: solid;
+  border-color: #ccc;
+  border-width: 1px 1px 1px 0;
+  float: left;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.day_holder a.selected {
+  background-color: #677889;
+  color: #fff;
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.2);
+  background-image: linear-gradient(to bottom, #677890, #677889);
+}
+
+.day_holder a:hover {
+  cursor: pointer;
+  background-color: #dde;
+}
+
+/* Calendar day/week views */
+.ice_cube_select_calendar_day,
+.ice_cube_select_calendar_week {
+  width: 155px;
+}
+
+.ice_cube_select_calendar_day a,
+.ice_cube_select_calendar_week a {
+  display: inline-block;
+  text-align: center;
+  width: 15px;
+  padding: 5px 3px;
+  font-size: 12px;
+  border-style: solid;
+  border-color: #ccc;
+  border-width: 1px;
+  margin: -1px 0 0 -1px;
+  line-height: 10px;
+  background-color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.ice_cube_select_calendar_day a.selected,
+.ice_cube_select_calendar_week a.selected {
+  background-color: #677889;
+  color: #fff;
+  background-image: linear-gradient(to bottom, #677890, #677889);
+  box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 1px #333;
+}
+
+.ice_cube_select_calendar_day a:hover,
+.ice_cube_select_calendar_week a:hover {
+  cursor: pointer;
+  background-color: #dde;
+}
+
+.ice_cube_select_calendar_day a.end_of_month {
+  width: 81px;
+}
+
+.ice_cube_select_calendar_week {
+  width: 191px;
+}
+
+.ice_cube_select_calendar_week span {
+  display: inline-block;
+  width: 35px;
+}
+
+/* Monthly rule type */
+.monthly_rule_type span {
+  margin-right: 15px;
+}
+
+/* Summary section */
+.ice_cube_select_summary {
+  padding: 0;
+  margin-top: 15px;
+  border-top: 1px solid #ccc;
+}
+
+.ice_cube_select_summary span {
+  font-weight: bold;
+  border-top: 1px solid #fff;
+  display: block;
+  padding: 10px 0 5px 0;
+}
+
+.ice_cube_select_summary.fetching {
+  color: #999;
+}
+
+.ice_cube_select_summary label {
+  font-weight: normal;
+}
+
+/* Controls */
+.controls {
+  padding: 10px 0 5px 0;
+  min-width: 170px;
+  text-align: center;
+}
+
+.controls input[type=button] {
+  margin: 0 5px;
+  width: 70px;
+}
+
+.controls input[type=button].ice_cube_select_save {
+  color: #333;
+}
+
+.controls input[type=button].ice_cube_select_cancel {
+  color: #666;
+}
+
+.controls input[type=button].disabled {
+  color: #aaa;
+}
+
+/* Animated state */
+.ice_cube_select_dialog.animated .controls {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.ice_cube_select_dialog.animated .ice_cube_select_summary,
+.ice_cube_select_dialog.animated .freq_option_section {
+  display: none;
+}
+
+/* Cancel button styling */
+#ice_cube_select_cancel_button {
+  color: #757575;
+}
