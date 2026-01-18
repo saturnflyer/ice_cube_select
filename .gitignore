@@ -15,3 +15,5 @@ spec/dummy/public/assets/
 *.sublime-workspace
 
 .idea
+
+coverage/
