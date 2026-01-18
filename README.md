@@ -19,7 +19,7 @@ No jQuery or other JavaScript framework dependencies. Uses vanilla JavaScript.
 Add the gem to your Gemfile:
 
 ```ruby
-gem 'ice_cube_select'
+gem 'ice_cube-select'
 ```
 
 ### Assets
