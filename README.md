@@ -8,7 +8,7 @@ Check out the [live demo](http://ice-cube-select-demo.herokuapp.com/) (code in [
 
 ## Requirements
 
-- Ruby 3.2+
+- Ruby 3.3+
 - Rails 8.0+
 - [ice_cube](https://github.com/seejohnrun/ice_cube) 0.16+
 
