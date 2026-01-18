@@ -368,7 +368,7 @@ select option.bold {
 
 /* Summary section */
 .ice_cube_select_summary {
-  padding: 0;
+  padding: 0 10px 0 0;
   margin-top: 15px;
   border-top: 1px solid var(--ice-cube-select-border);
 }
@@ -378,6 +378,8 @@ select option.bold {
   border-top: 1px solid var(--ice-cube-select-item-bg);
   display: block;
   padding: 10px 0 5px 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .ice_cube_select_summary.fetching {

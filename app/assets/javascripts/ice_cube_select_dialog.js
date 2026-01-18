@@ -69,6 +69,8 @@
       if (marginTop < 10) marginTop = 10;
 
       if (initialPositioning) {
+        // Lock content width to prevent dialog from expanding on interactions
+        this.content.style.width = this.content.offsetWidth + 'px';
         this.innerHolder.style.marginTop = marginTop + 'px';
         this.innerHolder.style.minHeight = dialogHeight + 'px';
         this.innerHolder.dispatchEvent(new CustomEvent('ice_cube_select:dialog_positioned'));
@@ -80,7 +82,6 @@
         // Use CSS transition end instead of jQuery animate
         const onTransitionEnd = () => {
           this.innerHolder.classList.remove('animated');
-          this.content.style.width = 'auto';
           this.innerHolder.dispatchEvent(new CustomEvent('ice_cube_select:dialog_positioned'));
           this.innerHolder.removeEventListener('transitionend', onTransitionEnd);
         };
@@ -249,8 +250,6 @@
     }
 
     summaryUpdate() {
-      this.summary.style.width = this.content.offsetWidth + 'px';
-
       if (this.currentRule.hash && this.currentRule.str) {
         this.summary.classList.remove('fetching');
         this.saveButton.classList.remove('disabled');
@@ -306,7 +305,6 @@
     summaryFetchSuccess(data) {
       this.currentRule.str = data;
       this.summaryUpdate();
-      this.content.style.width = 'auto';
     }
 
     initCalendarDays(section) {
