@@ -1,4 +1,4 @@
-eval_gemfile "../../Gemfile"
+source "https://rubygems.org"
+ruby file: "../../.ruby-version"
 
-gem "listen"
-gem "webrick"
+eval_gemfile "../../Gemfile"
