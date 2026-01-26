@@ -19,4 +19,13 @@ Gem::Specification.new do |s|
   s.add_dependency "ice_cube", ">= 0.17"
 
   s.license = "MIT"
+
+  s.post_install_message = <<~MSG
+    ice_cube_select installed successfully!
+
+    To copy assets to your app (required for Rails 8+ Propshaft):
+      rails generate ice_cube_select:install
+
+    For more info: https://github.com/saturnflyer/ice_cube_select
+  MSG
 end

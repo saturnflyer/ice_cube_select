@@ -1,0 +1,24 @@
+===============================================================================
+
+  ice_cube_select assets have been installed!
+
+  Files copied:
+  - app/assets/stylesheets/ice_cube_select.css
+  - app/assets/javascripts/ice_cube_select.js
+  - app/assets/javascripts/ice_cube_select_dialog.js
+
+  Next steps:
+
+  1. Include the assets in your layout (app/views/layouts/application.html.erb):
+
+     <%= stylesheet_link_tag 'ice_cube_select', 'data-turbo-track': 'reload' %>
+     <%= javascript_include_tag 'ice_cube_select', 'data-turbo-track': 'reload' %>
+     <%= javascript_include_tag 'ice_cube_select_dialog', 'data-turbo-track': 'reload' %>
+
+  2. Use in your forms:
+
+     <%= f.ice_cube_select :schedule, :start_date => Date.today %>
+
+  For more information, visit: https://github.com/saturnflyer/ice_cube_select
+
+===============================================================================

@@ -22,6 +22,15 @@ Add the gem to your Gemfile:
 gem 'ice_cube-select'
 ```
 
+Then install the assets:
+
+```bash
+bundle install
+rails generate ice_cube_select:install
+```
+
+This copies the CSS and JavaScript files to your `app/assets` directory for use with Propshaft (Rails 8 default asset pipeline).
+
 ### Assets
 
 Include the stylesheet and JavaScript in your layout:
@@ -31,8 +40,6 @@ Include the stylesheet and JavaScript in your layout:
 <%= javascript_include_tag "ice_cube_select" %>
 <%= javascript_include_tag "ice_cube_select_dialog" %>
 ```
-
-Works with Propshaft (Rails 8 default) out of the box.
 
 ### Form Helper
 
