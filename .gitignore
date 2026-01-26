@@ -17,3 +17,11 @@ spec/dummy/public/assets/
 .idea
 
 coverage/
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

@@ -1,0 +1,26 @@
+{
+  "name": "ice_cube_select",
+  "version": "1.0.0",
+  "description": "[![QLTY](https://qlty.sh/github/gh/ice_cube_select.png)](https://qlty.sh/gh/saturnflyer/ice_cube_select)",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saturnflyer/recurring_select.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/saturnflyer/recurring_select/issues"
+  },
+  "homepage": "https://github.com/saturnflyer/recurring_select#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.0",
+    "@types/node": "^25.0.10"
+  }
+}
