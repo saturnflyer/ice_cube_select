@@ -563,14 +563,14 @@
                   ${texts.months}:
                 </p>
                 <p class="monthly_rule_type">
-                  <span>
-                    <label for="monthly_rule_type_day">${texts.day_of_month}</label>
+                  <label class="monthly_rule_type_option">
                     <input type="radio" class="monthly_rule_type_day" name="monthly_rule_type" id="monthly_rule_type_day" value="true" />
-                  </span>
-                  <span>
-                    <label for="monthly_rule_type_week">${texts.day_of_week}</label>
+                    <span>${texts.day_of_month}</span>
+                  </label>
+                  <label class="monthly_rule_type_option">
                     <input type="radio" class="monthly_rule_type_week" name="monthly_rule_type" id="monthly_rule_type_week" value="true" />
-                  </span>
+                    <span>${texts.day_of_week}</span>
+                  </label>
                 </p>
                 <p class="ice_cube_select_calendar_day"></p>
                 <p class="ice_cube_select_calendar_week"></p>

@@ -362,8 +362,24 @@ select option.bold {
 }
 
 /* Monthly rule type */
-.monthly_rule_type span {
-  margin-right: 15px;
+.monthly_rule_type {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  align-items: center;
+}
+
+.monthly_rule_type_option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.monthly_rule_type_option input[type="radio"] {
+  margin: 0;
 }
 
 /* Summary section */
