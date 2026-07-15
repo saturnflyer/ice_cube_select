@@ -143,6 +143,9 @@
     weekly: 'Weekly',
     monthly: 'Monthly',
     yearly: 'Yearly',
+    anchored_monthly: 'Anchored monthly',
+    after_the: 'After the',
+    of_the_month: 'of the month, on these days after it:',
     every: 'Every',
     days: 'day(s)',
     weeks_on: 'week(s) on',
@@ -155,6 +158,7 @@
     summary: 'Summary',
     first_day_of_week: 0,
     days_first_letter: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    day_names: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     order: ['1st', '2nd', '3rd', '4th', '5th', 'Last'],
     show_week: [true, true, true, true, false, false]
   };

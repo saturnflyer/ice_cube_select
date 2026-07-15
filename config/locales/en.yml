@@ -6,3 +6,6 @@ en:
     new_custom_schedule: "New custom schedule..."
     custom_schedule: "Custom schedule..."
     or: or
+    anchored_monthly: "Anchored monthly"
+    after_the: "After the"
+    of_the_month: "of the month, on these days after it:"
