@@ -69,4 +69,16 @@ describe IceCube::AnchoredMonthlyRule do
     loaded = YAML.safe_load(yaml, permitted_classes: [Symbol, Time, Date])
     expect(described_class.from_hash(loaded).to_hash).to eq rule.to_hash
   end
+
+  it "rejects an anchor_weekday outside 0-6" do
+    expect { described_class.new(anchor_weekday: 7, anchor_ordinal: 1, day_offsets: [1]) }
+      .to raise_error(ArgumentError, /anchor_weekday/)
+    expect { described_class.new(anchor_weekday: -1, anchor_ordinal: 1, day_offsets: [1]) }
+      .to raise_error(ArgumentError, /anchor_weekday/)
+  end
+
+  it "accepts the boundary weekdays 0 (Sunday) and 6 (Saturday)" do
+    expect(described_class.new(anchor_weekday: 0, anchor_ordinal: 1, day_offsets: [1]).anchor_weekday).to eq 0
+    expect(described_class.new(anchor_weekday: 6, anchor_ordinal: 1, day_offsets: [1]).anchor_weekday).to eq 6
+  end
 end

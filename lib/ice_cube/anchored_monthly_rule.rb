@@ -12,6 +12,12 @@ module IceCube
 
     def initialize(anchor_weekday:, anchor_ordinal:, day_offsets:, interval: 1)
       @anchor_weekday = anchor_weekday.to_i
+      # The occurrence search walks day by day to the anchor weekday, so a
+      # weekday outside 0 (Sunday)-6 (Saturday) would never match and loop
+      # forever. Reject it up front.
+      unless (0..6).cover?(@anchor_weekday)
+        raise ArgumentError, "anchor_weekday must be 0 (Sunday) through 6 (Saturday), got #{anchor_weekday.inspect}"
+      end
       @anchor_ordinal = anchor_ordinal.to_i
       @day_offsets = Array(day_offsets).map(&:to_i).sort
       @interval = interval.to_i
