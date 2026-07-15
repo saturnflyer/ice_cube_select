@@ -1,5 +1,6 @@
 require "ice_cube_select/engine"
 require "ice_cube"
+require "ice_cube/anchored_monthly_rule"
 
 module IceCubeSelect
   def self.dirty_hash_to_rule(params)
