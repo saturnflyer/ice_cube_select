@@ -36,6 +36,9 @@ module IceCubeSelect
 
       params[:interval] = params[:interval].to_i if params[:interval]
       params[:week_start] = params[:week_start].to_i if params[:week_start]
+      params[:anchor_weekday] = params[:anchor_weekday].to_i if params[:anchor_weekday]
+      params[:anchor_ordinal] = params[:anchor_ordinal].to_i if params[:anchor_ordinal]
+      params[:day_offsets] = to_int_array(params[:day_offsets]) if params[:day_offsets]
 
       params[:validations] ||= {}
       params[:validations] = deep_symbolize_keys(params[:validations])
