@@ -114,3 +114,24 @@ module IceCube
     end
   end
 end
+
+# ice_cube's Rule.from_hash only understands its seven built-in interval
+# types and rejects any other rule_type. Intercept our rule_type before
+# that check and dispatch to AnchoredMonthlyRule; defer everything else to
+# the original implementation.
+module IceCube
+  class Rule
+    class << self
+      alias_method :from_hash_without_anchored, :from_hash
+
+      def from_hash(original_hash)
+        hash = IceCube::FlexibleHash.new(original_hash)
+        if hash[:rule_type].to_s == "IceCube::AnchoredMonthlyRule"
+          IceCube::AnchoredMonthlyRule.from_hash(original_hash)
+        else
+          from_hash_without_anchored(original_hash)
+        end
+      end
+    end
+  end
+end
