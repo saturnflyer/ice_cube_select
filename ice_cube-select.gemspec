@@ -23,8 +23,15 @@ Gem::Specification.new do |s|
   s.post_install_message = <<~MSG
     ice_cube_select installed successfully!
 
-    To copy assets to your app (required for Rails 8+ Propshaft):
-      rails generate ice_cube_select:install
+    The assets are served automatically from the engine (Propshaft and
+    Sprockets both pick them up). Just reference them in your layout:
+
+      <%= stylesheet_link_tag "ice_cube_select" %>
+      <%= javascript_include_tag "ice_cube_select" %>
+      <%= javascript_include_tag "ice_cube_select_dialog" %>
+
+    Only run `rails generate ice_cube_select:install` if you want to copy the
+    assets into your app to customize them.
 
     For more info: https://github.com/saturnflyer/ice_cube_select
   MSG

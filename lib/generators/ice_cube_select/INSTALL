@@ -1,21 +1,24 @@
 ===============================================================================
 
-  ice_cube_select assets have been installed!
+  ice_cube_select assets have been copied into your app for customizing.
 
   Files copied:
   - app/assets/stylesheets/ice_cube_select.css
   - app/assets/javascripts/ice_cube_select.js
   - app/assets/javascripts/ice_cube_select_dialog.js
 
-  Next steps:
+  These copies take precedence over the gem's versions and will NOT update
+  when you upgrade the gem. Re-run this generator (or diff against the gem)
+  after upgrading if you want the latest changes.
 
-  1. Include the assets in your layout (app/views/layouts/application.html.erb):
+  If you only include the layout tags below without copying, the assets are
+  served straight from the gem and update automatically:
 
      <%= stylesheet_link_tag 'ice_cube_select', 'data-turbo-track': 'reload' %>
      <%= javascript_include_tag 'ice_cube_select', 'data-turbo-track': 'reload' %>
      <%= javascript_include_tag 'ice_cube_select_dialog', 'data-turbo-track': 'reload' %>
 
-  2. Use in your forms:
+  Use in your forms:
 
      <%= f.ice_cube_select :schedule, :start_date => Date.today %>
 

@@ -5,7 +5,7 @@ module IceCubeSelect
     class InstallGenerator < Rails::Generators::Base
       source_root File.expand_path("../../../../app/assets", __FILE__)
 
-      desc "Copies ice_cube_select assets to your application for use with Propshaft"
+      desc "Copies ice_cube_select assets into your application so you can customize them (optional; the assets are served from the engine by default)"
 
       def copy_stylesheets
         copy_file "stylesheets/ice_cube_select.css",

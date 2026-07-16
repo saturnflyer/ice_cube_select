@@ -22,24 +22,37 @@ Add the gem to your Gemfile:
 gem 'ice_cube-select'
 ```
 
-Then install the assets:
-
 ```bash
 bundle install
-rails generate ice_cube_select:install
 ```
-
-This copies the CSS and JavaScript files to your `app/assets` directory for use with Propshaft (Rails 8 default asset pipeline).
 
 ### Assets
 
-Include the stylesheet and JavaScript in your layout:
+The gem ships its CSS and JavaScript as engine assets. Under Propshaft (the
+Rails 8 default) and Sprockets, the engine's `app/assets` directories are already
+on the asset load path, so you only need to reference the files in your layout:
 
 ```erb
 <%= stylesheet_link_tag "ice_cube_select" %>
 <%= javascript_include_tag "ice_cube_select" %>
 <%= javascript_include_tag "ice_cube_select_dialog" %>
 ```
+
+No install or copy step is required — updating the gem updates the assets.
+
+#### Customizing the assets (optional)
+
+If you want to fork the CSS or JavaScript to tweak it locally, copy the files
+into your app with:
+
+```bash
+rails generate ice_cube_select:install
+```
+
+This writes copies to your `app/assets` directory, where they take precedence
+over the gem's versions. Note that these copies will **not** update when you
+upgrade the gem — you own them from then on, so re-run the generator (or diff
+against the gem) after upgrading.
 
 ### Form Helper
 
