@@ -134,7 +134,10 @@
       if (this.currentRule.hash && this.currentRule.hash.rule_type) {
         const ruleType = this.currentRule.hash.rule_type;
 
-        if (ruleType.includes('Weekly')) {
+        if (ruleType === 'IceCube::AnchoredMonthlyRule') {
+          this.freqSelect.selectedIndex = 4;
+          this.initAnchoredOptions();
+        } else if (ruleType.includes('Weekly')) {
           this.freqSelect.selectedIndex = 1;
           this.initWeeklyOptions();
         } else if (ruleType.includes('Monthly')) {
@@ -240,6 +243,59 @@
 
       intervalInput.addEventListener('change', (e) => this.intervalChanged(e));
       intervalInput.addEventListener('keyup', (e) => this.intervalChanged(e));
+
+      section.style.display = 'block';
+    }
+
+    initAnchoredOptions() {
+      const section = this.content.querySelector('.anchored_options');
+
+      this.currentRule.hash = this.currentRule.hash || {};
+      this.currentRule.hash.anchor_ordinal = this.currentRule.hash.anchor_ordinal ?? 1;
+      this.currentRule.hash.anchor_weekday = this.currentRule.hash.anchor_weekday ?? 6;
+      if (!this.currentRule.hash.day_offsets || !this.currentRule.hash.day_offsets.length) {
+        this.currentRule.hash.day_offsets = [1, 3, 5, 8];
+      }
+
+      const ordinalSelect = section.querySelector('.anchored_ordinal');
+      ordinalSelect.value = this.currentRule.hash.anchor_ordinal;
+
+      const weekdaySelect = section.querySelector('.anchored_weekday');
+      if (!weekdaySelect.options.length) {
+        const dayNames = IceCubeSelect.texts.day_names || [0, 1, 2, 3, 4, 5, 6].map(num => this.fullStringWeekday(num));
+        dayNames.forEach((name, index) => {
+          const option = document.createElement('option');
+          option.value = index;
+          option.textContent = name;
+          weekdaySelect.appendChild(option);
+        });
+      }
+      weekdaySelect.value = this.currentRule.hash.anchor_weekday;
+
+      const offsetsGrid = section.querySelector('.anchored_offsets');
+      offsetsGrid.innerHTML = '';
+      const selectedOffsets = new Set(this.currentRule.hash.day_offsets);
+
+      for (let offset = 1; offset <= 14; offset++) {
+        const offsetLink = document.createElement('a');
+        offsetLink.href = '';
+        offsetLink.textContent = offset;
+        offsetLink.dataset.offset = offset;
+        offsetLink.setAttribute('aria-label', this.ordinalSuffixOf(offset) + ' day after anchor');
+
+        if (selectedOffsets.has(offset)) offsetLink.classList.add('selected');
+
+        offsetsGrid.appendChild(offsetLink);
+      }
+
+      ordinalSelect.addEventListener('change', () => this.anchoredMetaChanged());
+      weekdaySelect.addEventListener('change', () => this.anchoredMetaChanged());
+
+      offsetsGrid.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') {
+          this.anchoredOffsetChanged(e);
+        }
+      });
 
       section.style.display = 'block';
     }
@@ -432,6 +488,11 @@
           this.currentRule.str = IceCubeSelect.texts.yearly;
           this.initYearlyOptions();
           break;
+        case 'Anchored':
+          this.currentRule.hash.rule_type = 'IceCube::AnchoredMonthlyRule';
+          this.currentRule.str = IceCubeSelect.texts.anchored_monthly || 'Anchored monthly';
+          this.initAnchoredOptions();
+          break;
         default:
           this.currentRule.hash.rule_type = 'IceCube::DailyRule';
           this.currentRule.str = IceCubeSelect.texts.daily;
@@ -509,6 +570,33 @@
       this.summaryUpdate();
     }
 
+    anchoredMetaChanged() {
+      const section = this.content.querySelector('.anchored_options');
+
+      this.currentRule.str = null;
+      this.currentRule.hash = this.currentRule.hash || {};
+      this.currentRule.hash.anchor_ordinal = parseInt(section.querySelector('.anchored_ordinal').value, 10);
+      this.currentRule.hash.anchor_weekday = parseInt(section.querySelector('.anchored_weekday').value, 10);
+
+      this.summaryUpdate();
+    }
+
+    anchoredOffsetChanged(event) {
+      event.preventDefault();
+      event.target.classList.toggle('selected');
+
+      this.currentRule.str = null;
+      this.currentRule.hash = this.currentRule.hash || {};
+
+      const section = this.content.querySelector('.anchored_options');
+      const selectedOffsets = section.querySelectorAll('.anchored_offsets a.selected');
+      this.currentRule.hash.day_offsets = Array.from(selectedOffsets)
+        .map(el => parseInt(el.dataset.offset, 10))
+        .sort((a, b) => a - b);
+
+      this.summaryUpdate();
+    }
+
     template() {
       const texts = IceCubeSelect.texts;
       const firstDay = texts.first_day_of_week;
@@ -535,6 +623,7 @@
                   <option value="Weekly">${texts.weekly}</option>
                   <option value="Monthly">${texts.monthly}</option>
                   <option value="Yearly">${texts.yearly}</option>
+                  <option value="Anchored">${texts.anchored_monthly || 'Anchored monthly'}</option>
                 </select>
               </p>
 
@@ -582,6 +671,22 @@
                   <input type="text" data-wrapper-class="ui-recurring-select" name="ice_cube_select_yearly_interval" class="ice_cube_select_yearly_interval ice_cube_select_interval" value="1" size="2" title="Enter number of years to repeat" />
                   ${texts.years}
                 </p>
+              </div>
+
+              <div class="anchored_options freq_option_section">
+                <p>
+                  <label>${texts.after_the || 'After the'}
+                    <select class="anchored_ordinal">
+                      <option value="1">1st</option>
+                      <option value="2">2nd</option>
+                      <option value="3">3rd</option>
+                      <option value="4">4th</option>
+                    </select>
+                    <select class="anchored_weekday"></select>
+                    ${texts.of_the_month || 'of the month, on these days after it:'}
+                  </label>
+                </p>
+                <div class="anchored_offsets"></div>
               </div>
 
               <p class="ice_cube_select_summary">
