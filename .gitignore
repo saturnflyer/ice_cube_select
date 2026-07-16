@@ -25,3 +25,6 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Appraisal gemfile locks are generated per-platform by CI; do not commit
+gemfiles/*.lock
