@@ -310,6 +310,39 @@ select option.bold {
   background-color: var(--ice-cube-select-item-bg-hover);
 }
 
+/* Anchored monthly: grid of day-offset cells after the anchor weekday */
+.anchored_offsets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 5px;
+}
+
+.anchored_offsets a {
+  display: block;
+  min-width: 20px;
+  padding: 5px 7px;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid var(--ice-cube-select-border);
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: inset 0px 1px 2px var(--ice-cube-select-shadow-light);
+  background-color: var(--ice-cube-select-item-bg);
+}
+
+.anchored_offsets a.selected {
+  background-color: var(--ice-cube-select-primary);
+  color: var(--ice-cube-select-text-on-primary);
+  box-shadow: inset 1px 1px 2px var(--ice-cube-select-shadow-medium);
+  background-image: linear-gradient(to bottom, var(--ice-cube-select-primary-gradient-start), var(--ice-cube-select-primary-gradient-end));
+}
+
+.anchored_offsets a:hover {
+  cursor: pointer;
+  background-color: var(--ice-cube-select-item-bg-hover);
+}
+
 /* Calendar day/week views */
 .ice_cube_select_calendar_day,
 .ice_cube_select_calendar_week {
